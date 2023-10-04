@@ -13,19 +13,17 @@ const auth = asyncHandler (async (req, res, next) => {
 
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
-        console.log(payload)
-        if(payload.role !== 'user' && payload.role !== 'admin'){
+        if(payload.role !== 'admin'){
             throw new UnauthentiacatedError('Authentication invalid!')
-        }
+        }  
         req.user = {userId:payload.userId, name: payload.name, role: payload.role}
-
 
         next()
     } catch (error) {
         throw new UnauthentiacatedError('Authentication invalid!')
     }
 
-})
 
+})
 
 module.exports = auth

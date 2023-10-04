@@ -1,14 +1,57 @@
-const express = require("express");
-const {
-  createBook,
-  getAllJobs,
-  getJob,
-  updateJob,
-  deleteJob,
-} = require("../controllers/jobs");
-const router = express.Router();
+const { StatusCodes } = require("http-status-codes");
+const Books = require("../model/book");
+const asyncHandler = require("express-async-handler");
+const { NotFoundError } = require("../errors");
 
-router.route("/").get(getAllJobs).post(createJob);
-router.route("/:id").get(getJob).patch(updateJob).delete(deleteJob);
+//get all books
+const getAllBooks = asyncHandler(async (req, res) => {
+  const book = await Books.find();
+  res.status(StatusCodes.OK).json(book);
+});
 
-module.exports = router;
+//add a book
+const addBook = asyncHandler(async (req, res) => {
+  const book = await Books.create(req.body);
+  res.status(StatusCodes.CREATED).json(book);
+});
+
+//get one book
+const getBook = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const book = await Books.findById(id);
+  if (!book) {
+    throw new NotFoundError("book does not exist in library");
+  }
+  res.status(StatusCodes.OK).json(book);
+});
+
+//update a book
+const updateBook = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const book = await Books.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!book) {
+    throw new NotFoundError("book does not exist in library");
+  }
+  res.status(StatusCodes.OK).json(book);
+});
+
+
+//delete a book
+const deleteBook = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const book = await Books.findByIdAndDelete(id);
+  if (!book) {
+    throw new NotFoundError("book does not exist in library");
+  }
+  res.status(StatusCodes.OK).json(book);
+});
+module.exports = {
+  addBook,
+  getAllBooks,
+  getBook,
+  updateBook,
+  deleteBook,
+};

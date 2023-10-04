@@ -22,7 +22,7 @@ app.use(xss())
 app.use('/api/user', userRoute)
 
 app.use('/api/admin', adminRoute)
- app.use('/api/books', authHandler)
+app.use('/api/books', bookRoute)
 
 app.use(errorHandler)
 app.use(notFound)
@@ -30,7 +30,7 @@ app.use(notFound)
 const start = () => {
     try {
         connectDb(process.env.CONNECTION_STRING)
-        app.listen(port, console.log(`server dey for ${port} in top...`))
+        app.listen(port, console.log(`server dey run for ${port} in top...`))
     } catch (error) {
         console.log(error)
     }

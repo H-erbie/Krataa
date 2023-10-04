@@ -27,8 +27,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'please provide password']
-    }
-
+    },
+    role: {
+      type: String,
+      default: 'user'
+  }
 
 },{timestamps: true})
 
@@ -40,7 +43,7 @@ userSchema.pre("save", async function () {
   
   userSchema.methods.createJWT = function () {
     return jwt.sign(
-      { userId: this._id, name: this.username },
+      { userId: this._id, name: this.username, role: this.role },
       process.env.JWT_SECRET,
       {
         expiresIn: process.env.JWT_LIFETIME,

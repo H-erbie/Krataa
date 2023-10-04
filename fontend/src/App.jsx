@@ -5,6 +5,9 @@ import Signin from "./components/Login";
 import Signup from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Library from "./library";
+import adminLogin from "./components/adminLogin";
+import adminSignup from "./components/adminSignup";
+
 function App() {
   return (
     <>
@@ -12,8 +15,10 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Header />}></Route>
-          <Route path="/signin" element={<Signin />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/user/signin" element={<Signin />}></Route>
+          <Route path="/admin/signin" element={<adminLogin  />}></Route>
+          <Route path="/admin/signup" element={<adminSignup />}></Route>
+          <Route path="/user/signup" element={<Signup />}></Route>
           <Route path="/library" element={<Library />}></Route>
         </Routes>
 

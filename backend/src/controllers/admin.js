@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes")
 const Admin = require("../model/admin")
-const User = require("../model/user")
+// const User = require("../model/user")
 const asyncHandler = require("express-async-handler")
 
 //sign up
@@ -11,6 +11,7 @@ const signUp = asyncHandler(async(req, res) => {
     .json({ user: { name: user.username }, token })
 }
 )
+
 
 
 // sign in
