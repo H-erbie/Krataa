@@ -33,8 +33,8 @@ const Footer = () => {
       
       <div className="flex gap-3">
         {
-          links.map(link => {
-            return <a href='#' className='text-lg capitalize hover:text-gray-500 cursor-pointer'>{link}</a>
+          links.map((link, index) => {
+            return <a href='#' key={index} className='text-lg capitalize hover:text-gray-500 cursor-pointer'>{link}</a>
           })
         }
       </div>

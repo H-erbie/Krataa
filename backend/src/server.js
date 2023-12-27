@@ -27,9 +27,10 @@ app.use('/api/books', bookRoute)
 app.use(errorHandler)
 app.use(notFound)
 
-const start = () => {
+const start = async() => {
+    let connection;
     try {
-        connectDb(process.env.CONNECTION_STRING)
+        if(!connection) connection = await connectDb(process.env.CONNECTION_STRING)
         app.listen(port, console.log(`server dey run for ${port} in top...`))
     } catch (error) {
         console.log(error)

@@ -5,12 +5,14 @@ const jwt = require('jsonwebtoken')
 const userSchema = new mongoose.Schema({
     fullname: {
         type: String,
-        required: [true, 'please provide fullname']
+        required: [true, 'please provide fullname'],
+        trim: true
     },
 
     username: {
         type: String,
-        required: [true, 'please provide username']
+        required: [true, 'please provide username'],
+        trim: true
     },
     email: {
         type: String,
@@ -22,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     program: {
         type: String,
-        required: [true, 'please provide program']
+        required: false
     },
     password: {
         type: String,
@@ -30,15 +32,23 @@ const userSchema = new mongoose.Schema({
     },
     role: {
       type: String,
+      enum: ["user", "admin"],
       default: 'user'
   }
 
 },{timestamps: true})
 
 
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
+  if(!this.isModified("password")) return next()
+  try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    next()
+  } catch (error) {
+    throw error
+  }
+    
   });
   
   userSchema.methods.createJWT = function () {
@@ -53,8 +63,11 @@ userSchema.pre("save", async function () {
   };
 
   userSchema.methods.comparePassword = async function (candidatePassword) {
-    const isMatch = await bcrypt.compare(candidatePassword, this.password);
-    return isMatch;
+    try {
+      return await bcrypt.compare(candidatePassword, this.password);
+    } catch (error) {
+      throw error
+    }
   };
 
 module.exports = mongoose.model("User", userSchema);
