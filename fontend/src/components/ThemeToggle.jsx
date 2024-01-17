@@ -1,11 +1,34 @@
-import React, { useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { Sun, Moon } from "lucide-react";
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState(false);
+  const storedData = localStorage.getItem("krataa-ui-theme");
+  const [theme, setTheme] = useState(JSON.parse(storedData) || "light");
+  console.log();
+  const handleClick = () => {
+    if (theme === "dark") {
+      localStorage.setItem("krataa-ui-theme", JSON.stringify("light"));
+      setTheme("light");
+    } else {
+      localStorage.setItem("krataa-ui-theme", JSON.stringify("dark"));
+      setTheme("dark");
+    }
+  };
+  useEffect(() => {
+    theme === "dark"
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+  }, [theme]);
   return (
-    <button className="hover:bg-gray-200 border rounded-md p-[10px]" onClick={()=> setTheme(!theme)}>
-      {theme ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
+    <button
+      className="hover:bg-gray-200 dark:hover:bg-[#181B1F]  rounded-[100%] p-[10px]"
+      onClick={handleClick}
+    >
+      {theme === "light" ? (
+        <Moon className="text-xl" />
+      ) : (
+        <Sun className="text-xl" />
+      )}
     </button>
   );
 };

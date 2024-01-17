@@ -8,14 +8,14 @@
     margin: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    /* text-wrap:; */
+    /* font-weight obhyu0p80-9 b;hvgv              mmmmm..; */
 }
 @layer base{
    html{
     overflow-x: hidden;
    }
-    section{
-        @apply min-h-screen bg-gray-100
-    }
+    
     .header{
         background-image: url(./assets/bg.jpg);
         background-repeat: no-repeat;
@@ -32,9 +32,26 @@
        @apply flex gap-2 items-center p-1 px-2 rounded-md 
     }
     input[type='text'], [type='password'], [type='email']{
-        @apply p-2 px-3 w-60 rounded-md focus:outline-black focus:outline border-none
+        @apply p-2 px-3 rounded-md focus:outline-black focus:outline 
     }
-    a{
+    .overlay{
+        @apply lg:hidden block  backdrop-brightness-50 fixed left-0 top-0 w-screen h-screen    }
+    .isSidemenu{
+        @apply -right-full transition-all duration-[2000]  dark:bg-[#3f434a] border-l bg-white w-[24rem] ml-auto dark:border-transparent h-screen absolute top-0
+    }
+    .searchOverlay{
+        @apply h-screen hidden w-screen fixed backdrop-blur-sm backdrop-brightness-50 left-0 top-0 z-20
+    }
+    .sm-search{
+        @apply sm:hidden cursor-pointer block text-2xl
+    }
+    .lg-search{
+        @apply hidden sm:flex  gap-x-2
+    }
+    .logo-name{
+        @apply capitalize font-bold hover:text-gray-700 dark:hover:text-gray-200 transition-all -ml-3
+    }
+        /* a{
         @apply hover:underline
-    }
+    } */
 }

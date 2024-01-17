@@ -27,8 +27,8 @@ const Footer = () => {
     },
     
   ]
-  return (
- <footer className='bg-[#111] flex flex-col gap-3 justify-center h-64 text-white '>
+  if(location.pathname !== "/signin" &&
+  location.pathname !== "/signup")return <footer className='bg-[#3f434a] flex flex-col gap-3 justify-center h-64 text-white '>
      <div className=' flex justify-center items-center'>
       
       <div className="flex gap-3">
@@ -51,7 +51,6 @@ const Footer = () => {
         </div>
     <p className='text-center'>All rights reserved</p>
  </footer>
-  )
-}
+  }
 
 export default Footer

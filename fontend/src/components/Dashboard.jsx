@@ -2,7 +2,7 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <section>Dashboard</section>
+    <main className='min-h-[100vh]'>Dashboard</main>
   )
 }
 
