@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useGlobalContext } from "./context";
 import pdfIcon from '../assets/pdficon.png'
 import imgIcon from '../assets/imgicon.png'
+import {useDrag} from 'react-dnd'
 const Contribute = () => {
   const navigate = useNavigate();
   const { getCookie } = useGlobalContext();
@@ -18,6 +19,19 @@ const Contribute = () => {
   const [isBookDroppable, setIsBookDroppable] = useState(false);
   const wrapperRef = useRef(null);
   const bookWrapperRef = useRef(null);
+  const [] = useDrag()
+    const handleDrop = (event) => {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      // Implement your drop handling logic, including validation
+      for (const file of files) {
+        if (!isValid(file)) {
+          console.error(`Invalid file: ${file.name}`);
+        } else {
+          onDrop(file); // If valid, call user-provided handler
+        }
+      }
+    };
   const onDragEnter = (wrap) => {
     if (wrap == wrapperRef) {
       setIsDroppable(true);
