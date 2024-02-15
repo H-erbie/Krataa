@@ -10,6 +10,7 @@ import Search from "./components/Search";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Contribute from "./components/Contribute";
+import UserProfile from "./components/User-Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/contribute" element={<Contribute />}></Route>
+          <Route path="/user-profile" element={<UserProfile />}></Route>
         </Routes>
 
         <Footer />

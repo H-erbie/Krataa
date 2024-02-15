@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'please provide username'],
-        trim: true
+        trim: true,
+        unique: [true, `This book is already in the library!`],
     },
     email: {
         type: String,
@@ -21,10 +22,6 @@ const userSchema = new mongoose.Schema({
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g,
           ],
         unique: [true, "Email address taken!"],
-    },
-    program: {
-        type: String,
-        required: false
     },
     password: {
         type: String,
@@ -53,7 +50,7 @@ userSchema.pre("save", async function (next) {
   
   userSchema.methods.createJWT = function () {
     return jwt.sign(
-      { userId: this._id, name: this.username, role: this.role },
+      { userId: this._id, fname:this.fullname, email:this.email, program:this.program,  name: this.username, role: this.role },
       process.env.JWT_SECRET,
       {
         expiresIn: process.env.JWT_LIFETIME,

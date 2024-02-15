@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaMailBulk,
   FaLock,
@@ -12,46 +12,74 @@ import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import Cookies from "universal-cookie";
+import { useGlobalContext } from "./context";
 const Signup = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [program, setProgram] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const navigate = useNavigate();
+  const { getUser, getCookie } = useGlobalContext();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setBusy(true);
-    const userInfo = {
+const userInfo = {
       fullname,
       email,
       username,
-      program,
       password,
     };
+    const cookies = new Cookies()
+    useEffect(() => {
+      if (getCookie) {
+        navigate("/");
+      }
+     
+    }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    setErr('')
 
     try {
-      await fetch("http://localhost:3001/api/user/signup", {
+     const res = await fetch("http://localhost:3001/api/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userInfo),
       });
+
       setBusy(false);
       setFullname("");
       setUsername("");
       setEmail("");
       setPassword("");
-      setProgram("");
-      navigate("/user/library");
+      if (res.ok) {
+        const {token} = await res.json()
+        cookies.set('accessToken', token, {
+          path: '/',
+          https: true,
+          secure: true,
+          sameSite: "lax"
+        })
+      getUser()
+      navigate("/");
+
+      }
+      else{
+        const errMsg = await res.json()
+        setErr(errMsg.msg);
+        setBusy(true);
+      }
+        
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       setErr(error.message);
-    }
+      setBusy(true);
+
+    } 
   };
   return (
     <main className="flex min-h-[100vh] items-center justify-center ">
@@ -105,33 +133,7 @@ const Signup = () => {
               value={email}
             />
           </div>
-          <div className="inp-field w-[60%] min-w-[250px] mx-auto">
-            <FaGraduationCap className="text-xl" />
-            <select
-              name=""
-              id=""
-              placeholder="choose a program"
-              required
-              className="p-2 w-full dark:bg-gray-200 text-gray-400 px-3 rounded-md"
-              onChange={(e) => setProgram(e.target.value)}
-              value={program}
-            >
-              <option value="Computer Science">Computer Science</option>
-              <option value="Computer Engineering">Computer Engineering</option>
-              <option value="Mechanical Engineering">
-                Mechanical Engineering
-              </option>
-              <option value="Electrical Engineering">
-                Electrical Engineering
-              </option>{" "}
-              <option value="Medical Laboratory">Medical Laboratory</option>{" "}
-              <option value="Nursing">Nursing</option>{" "}
-              <option value="Information Technology">
-                Information Technology
-              </option>{" "}
-              <option value="Natural Resources">Natural Resources</option>{" "}
-            </select>
-          </div>
+          
           <div className="inp-field w-[60%] min-w-[250px] mx-auto">
             <FaLock className="text-xl" />
             <input
@@ -150,7 +152,7 @@ const Signup = () => {
           dark:hover:bg-gray-200 dark:text-black p-2 w-[40%] max-w-[300px] mx-auto hover:bg-gray-900 text-white text-center disabled:opacity-40"
           disabled={busy}
         >
-          sign up
+          {busy ? "signing up..." : 'sign up'}
         </button>
 
         <p className="mt-5 text-center">
@@ -159,7 +161,7 @@ const Signup = () => {
             sign in
           </a>
         </p>
-        <p className="text-red-600 text-lg">{err}</p>
+        <p className="text-red-600 w-max mx-auto text-lg">{err}</p>
       </form>
     </main>
   );

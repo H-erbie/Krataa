@@ -51,6 +51,12 @@
     .logo-name{
         @apply capitalize font-bold hover:text-gray-700 dark:hover:text-gray-200 transition-all -ml-3
     }
+    .edit-form{
+        @apply mx-auto w-full sm:w-1/2 bg-white h-max dark:bg-[#181B1F] transition-all fixed -bottom-[100vh] sm:top-[30%] left-0 sm:left-[25%] rounded-lg z-20
+    }
+    .edit-overlay{
+        @apply w-screen top-0 left-0 fixed  h-screen backdrop-brightness-50
+    }
         /* a{
         @apply hover:underline
     } */

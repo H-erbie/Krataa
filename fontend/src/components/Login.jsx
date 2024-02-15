@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaMailBulk, FaLock } from "react-icons/fa";
-
+import Cookies from "universal-cookie";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { useGlobalContext } from "./context";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
-
+  const cookies = new Cookies()
   const navigate = useNavigate();
+  const {  getCookie } = useGlobalContext();
+
+  useEffect(() => {
+    if (getCookie) {
+      navigate("/");
+    }
+   
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setBusy(true);
@@ -30,10 +39,17 @@ const Login = () => {
       setBusy(false);
       setEmail("");
       setPassword("");
-      if (!response.ok) {
-        console.log(response)
+      if (response.ok) {
+        const {token} = await response.json()
+        cookies.set('accessToken', token, {
+          path: '/',
+          https: true,
+          secure: true,
+          sameSite: "lax"
+        })
+        navigate('/')
       }
-
+      
       // navigate("/user/library");
     } catch (error) {
       console.log(error);

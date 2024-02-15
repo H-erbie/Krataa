@@ -4,7 +4,6 @@ import { Sun, Moon } from "lucide-react";
 const ThemeToggle = () => {
   const storedData = localStorage.getItem("krataa-ui-theme");
   const [theme, setTheme] = useState(JSON.parse(storedData) || "light");
-  console.log();
   const handleClick = () => {
     if (theme === "dark") {
       localStorage.setItem("krataa-ui-theme", JSON.stringify("light"));

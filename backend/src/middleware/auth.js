@@ -17,7 +17,7 @@ const auth = asyncHandler (async (req, res, next) => {
         if(payload.role !== 'user' && payload.role !== 'admin'){
             throw new UnauthentiacatedError('Authentication invalid!')
         }
-        req.user = {userId:payload.userId, name: payload.name, role: payload.role}
+        req.user = {userId:payload.userId, name: payload.name, email: payload.email, program: payload.program, fullname: payload.fname, role: payload.role}
 
 
         next()

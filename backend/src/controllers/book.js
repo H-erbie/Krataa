@@ -11,9 +11,17 @@ const getAllBooks = asyncHandler(async (req, res) => {
 
 //add a book
 const addBook = asyncHandler(async (req, res) => {
-  const book = await Books.create(req.body);
+  console.log(req.files.img[0].path)
+  const book = await Books.create({
+    name: req.body.name,
+    author:req.body.author,
+    genre: req.body.genre,
+    doc: req.files.pdf[0].path,
+    img: req.files.pdf[0].path 
+  });
   res.status(StatusCodes.CREATED).json(book);
 });
+
 
 //get one book
 const getBook = asyncHandler(async (req, res) => {

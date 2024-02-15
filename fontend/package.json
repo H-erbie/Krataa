@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router": "^6.16.0",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "universal-cookie": "^7.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

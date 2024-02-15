@@ -5,13 +5,17 @@ const bookSchema = new mongoose.Schema({
         required: [true, 'please provide book name'],
         unique: [true, `This book is already in the library!`],
     },
-    // image: {
-    //     type: String,
-    //     required: [true, 'please provide book image']
-    // },
     author: {
         type: String,
         required: [true, 'please provide book author']
+    },
+    img: {
+        type: String,
+        required: [true, 'please provide book image']
+    },
+    doc: {
+        type: String,
+        required: [true, 'please provide book document']
     },
     genre: {
         type: String,
