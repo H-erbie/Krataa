@@ -36,9 +36,9 @@ const Category = ({genre, books}) => {
             >
                 <Card className='w-52 border-none'>
                   <CardContent className=" aspect-square items-center justify-center p-6">
-                    <img src={`/backend/${book.img}`} alt={book.name} className='w-full rounded-md'/>
+                    <img src={`/backend/${book.img}`} alt={book.name} className='w-full h-40 object-cover rounded-md'/>
                                     <p className='mt-2 capitalize text-center'>{book.name}</p>
-                                    <p className='mt-2 capitalize text-gray-400 text-center text-sm'>by {book.author}</p>
+                                    <p className='mt-1 capitalize text-gray-400 text-center text-sm'>by {book.author}</p>
 </CardContent>
                 </Card>
             </CarouselItem>
