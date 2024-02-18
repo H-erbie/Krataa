@@ -185,7 +185,7 @@ const Navbar = () => {
                 type="search"
                 name="search"
                 placeholder="search books"
-                className="dark:bg-gray-200 focus:outline-black dark:focus:outline-gray-200 focus:outline border w-[90%] px-2 rounded-md"
+                className="dark:bg-transparent focus:outline-black dark:focus:outline-gray-200 focus:outline border w-[90%] px-2 rounded-md"
                 onClick={() => setSearchOverlay(true)}
               />
               <button className="no-underline dark:hover:bg-[#181B1F]  p-2 hover:bg-gray-200 rounded-lg">
