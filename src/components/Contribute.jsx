@@ -197,9 +197,15 @@ const Contribute = () => {
           >
             {" "}
             <option value=''>Select a genre</option>
-            <option>romance</option>
-            <option>Crime</option>
-            <option>Past Questions</option>
+            <option value='romance'>Romance</option>
+            <option value='fiction'>Fiction</option>
+            <option value='fantasy'>Fantasy</option>
+            <option value='history'>History</option>
+            <option value='action-adventure'>Action-Adventure</option>
+            <option value='action'>Action</option>
+            <option value='adventure'>Adventure</option>
+            <option value='sci-fi'>Sci-fi</option>
+            <option value='past questions'>Past Questions</option>
           </select>
         </div>
       </div>

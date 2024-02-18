@@ -13,56 +13,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Category = ({genre, books}) => {
   console.log(books)
-    const headerGenre = [
-        {
-          id: 1,
-          name: "sci-fi",
-        },
-        {
-          id: 2,
-          name: "romance",
-        },
-        {
-          id: 3,
-          name: "adventure",
-        },
-        {
-          id: 4,
-          name: "novel",
-        },
-        {
-          id: 1,
-          name: "sci-fi",
-        },
-        {
-          id: 2,
-          name: "romance",
-        },
-        {
-          id: 3,
-          name: "adventure",
-        },
-        {
-          id: 4,
-          name: "novel",
-        },
-        {
-          id: 1,
-          name: "sci-fi",
-        },
-        {
-          id: 2,
-          name: "romance",
-        },
-        {
-          id: 3,
-          name: "adventure",
-        },
-        {
-          id: 4,
-          name: "novel",
-        },
-      ];
+ 
   return (
     <>
 <div className="flex justify-between items-center px-4">
@@ -83,10 +34,11 @@ const Category = ({genre, books}) => {
               key={index}
               className="md:basis-1/2 transition-all hover:-translate-y-2 px-3 border-none lg:basis-1/3 border"
             >
-                <Card className='w-40 border-none'>
+                <Card className='w-52 border-none'>
                   <CardContent className=" aspect-square items-center justify-center p-6">
-                    <img src={book.img} alt='book' className='w-full rounded-md'/>
+                    <img src={`/backend/${book.img}`} alt={book.name} className='w-full rounded-md'/>
                                     <p className='mt-2 capitalize text-center'>{book.name}</p>
+                                    <p className='mt-2 capitalize text-gray-400 text-center text-sm'>by {book.author}</p>
 </CardContent>
                 </Card>
             </CarouselItem>
