@@ -242,8 +242,10 @@ const Contribute = () => {
           </div>
           {fileList.length > 0 && (
             <div>
-              {fileList.map((item, index) => (
-                <div
+              {fileList.map((item, index) => {
+               const charNum = item.name.split('')
+               const imageName = item.name.slice(0,7)
+               return <div
                   className="flex p-2 justify-evenly items-center bg-blue-50 dark:bg-slate-600 rounded-md"
                   key={index}
                 >
@@ -258,7 +260,7 @@ const Contribute = () => {
                     alt=""
                   />
                   <div className="">
-                    <p className="text-sm">{item.name}</p>
+                    <p className="text-sm">{charNum.length > 7 ? `${imageName}...` : item.name}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{item.size}Bytes</p>
                   </div>
                   <button
@@ -268,7 +270,7 @@ const Contribute = () => {
                     <Trash />
                   </button>
                 </div>
-              ))}
+})}
             </div>
           )}
         </div>

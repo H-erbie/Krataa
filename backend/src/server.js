@@ -4,6 +4,7 @@ const express = require('express')
 const connectDb = require('./connectDb/connect')
 const userRoute = require('./routes/user')
 const adminRoute = require('./routes/admin')
+const adminBooksRoute = require('./routes/adminBooks')
 const bookRoute = require('./routes/book')
 const errorHandler = require('./middleware/errorHandler')
 const notFound = require('./middleware/notFound')
@@ -11,6 +12,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const xss = require('xss-clean')
 const authHandler = require('./middleware/auth')
+const adminAuth = require('./middleware/adminAuth')
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -22,8 +24,10 @@ app.use(xss())
 app.use('/', express.static('uploads'));
 app.use('/api/user', userRoute)
 
-app.use('/api/admin', adminRoute)
+app.use('/api/admin', adminAuth, adminRoute, )
+app.use('/api/admin-books', adminAuth, adminBooksRoute )
 app.use('/api/books', bookRoute)
+
 
 app.use(errorHandler)
 app.use(notFound)

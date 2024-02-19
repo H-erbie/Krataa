@@ -38,7 +38,7 @@ const Category = ({genre, books}) => {
             >
                 <Card className='w-52 border-none'>
                   <CardContent className=" aspect-square items-center justify-center p-6">
-                    <img crossorigin="anonymous" src={`http://localhost:3001/${imgBaseUrl[1]}`} alt={book.name} className='w-full h-40 object-cover rounded-md'/>
+                    <img crossOrigin="anonymous" src={`http://localhost:3001/${imgBaseUrl[1]}`} alt={book.name} className='w-full h-40 object-cover rounded-md'/>
                                     <p className='mt-2 capitalize text-center'>{book.name}</p>
                                     <p className='mt-1 capitalize text-gray-400 text-center text-sm'>by {book.author}</p>
 </CardContent>

@@ -14,7 +14,7 @@ const Login = () => {
   const [err, setErr] = useState("");
   const cookies = new Cookies()
   const navigate = useNavigate();
-  const {  getCookie } = useGlobalContext();
+  const {  getCookie, getUser } = useGlobalContext();
 
   useEffect(() => {
     if (getCookie) {
@@ -47,6 +47,7 @@ const Login = () => {
           secure: true,
           sameSite: "lax"
         })
+        getUser()
         navigate('/')
       }
       
